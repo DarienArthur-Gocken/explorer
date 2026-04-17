@@ -29,9 +29,24 @@ public class ExplorerSearch {
      * @return the number of spaces the explorer can reach
      */
     public static int reachableArea(int[][] island) {
-        // Implement your method here!
-        // Please also make more test cases
-        // I STRONGLY RECOMMEND testing some helpers you might make too
+        int rows = island.length;
+        int columns = island[0].length;
+
+        int[] explorer = findExplorer(island);
+
+        boolean[][] visited = new boolean[rows][columns];
         return -1;
+    }
+
+    private static int[] findExplorer(int[][] island) {
+        for(int row = 0; row < island.length; row++) {
+            for(int column = 0; column < island[0].length; column++) {
+                if(island[row][column] == 0) {
+                    return new int[]{row, column};
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("No explorer was on the island.");
     }
 }
