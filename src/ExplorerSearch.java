@@ -35,7 +35,33 @@ public class ExplorerSearch {
         int[] explorer = findExplorer(island);
 
         boolean[][] visited = new boolean[rows][columns];
-        return -1;
+        return reachableArea(island, visited, explorer[0], explorer[1]);
+    }
+
+    private static int reachableArea(int[][] island, boolean[][] visited, int row, int column) {
+        if(row < 0 || column < 0 || row >= island.length || column >= island[0].length) return 0;
+        if(visited[row][column]) return 0;
+
+        int tileBeingChecked = island[row][column];
+        if(tileBeingChecked == 2 || tileBeingChecked == 3) return 0;
+
+        visited[row][column] = true;
+
+        int tileCount = 1;
+
+        int south = reachableArea(island, visited, row+1, column);
+        tileCount += south;
+
+        int north = reachableArea(island, visited, row-1, column);
+        tileCount += north;
+
+        int east = reachableArea(island, visited, row, column+1);
+        tileCount += east;
+
+        int west = reachableArea(island, visited, row, column-1);
+        tileCount += west;
+
+        return tileCount;
     }
 
     private static int[] findExplorer(int[][] island) {
